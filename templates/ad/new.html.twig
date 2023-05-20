@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New AD{% endblock %}
+
+{% block body %}
+    <h1>Create new AD</h1>
+
+    {{ include('ad/_form.html.twig') }}
+
+    <a href="{{ path('app_a_d_index') }}">back to list</a>
+{% endblock %}

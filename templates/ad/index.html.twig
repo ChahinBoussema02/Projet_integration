@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AD index{% endblock %}
+
+{% block body %}
+    <h1>AD index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Points</th>
+                <th>Description</th>
+                <th>Url</th>
+                <th>Availability</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for a_d in a_ds %}
+            <tr>
+                <td>{{ a_d.id }}</td>
+                <td>{{ a_d.nom }}</td>
+                <td>{{ a_d.points }}</td>
+                <td>{{ a_d.description }}</td>
+                <td>{{ a_d.url }}</td>
+                <td>{{ a_d.availability ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_a_d_show', {'id': a_d.id}) }}">show</a>
+                    <a href="{{ path('app_a_d_edit', {'id': a_d.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_a_d_new') }}">Create new</a>
+{% endblock %}
