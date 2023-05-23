@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'nav.html.twig' %}
 
 {% block title %}Video index{% endblock %}
 
@@ -22,6 +22,15 @@
                 <td>{{ video.url }}</td>
                 <td>{{ video.caption }}</td>
                 <td>{{ video.createdAt ? video.createdAt|date('Y-m-d') : '' }}</td>
+                <figure>
+                <td>
+                    <video width="200" height="170" controls>
+                 <source src="{{ video.url}}" type="video/mp4">
+                    Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            </figure>
+                </td>
+    
                 <td>
                     <a href="{{ path('app_video_show', {'id': video.id}) }}">show</a>
                     <a href="{{ path('app_video_edit', {'id': video.id}) }}">edit</a>

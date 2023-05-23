@@ -41,15 +41,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $picture = null;
 
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AD::class)]
-    private Collection $AD;
-
     #[ORM\Column(length: 255)]
     private ?string $role = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Video::class)]
+    private Collection $videos;
 
     public function __construct()
     {
         $this->AD = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,35 +159,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, AD>
-     */
-    public function getAD(): Collection
-    {
-        return $this->AD;
-    }
-
-    public function addAD(AD $aD): self
-    {
-        if (!$this->AD->contains($aD)) {
-            $this->AD->add($aD);
-            $aD->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAD(AD $aD): self
-    {
-        if ($this->AD->removeElement($aD)) {
-            // set the owning side to null (unless already changed)
-            if ($aD->getUser() === $this) {
-                $aD->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function __toString(){
         return $this->getFirstName();
@@ -200,6 +172,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Video>
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos->add($video);
+            $video->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getUser() === $this) {
+                $video->setUser(null);
+            }
+        }
 
         return $this;
     }

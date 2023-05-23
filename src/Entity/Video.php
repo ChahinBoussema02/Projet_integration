@@ -14,18 +14,19 @@ class Video
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $url = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $caption = null;
 
-    #[ORM\ManyToOne(inversedBy: 'videos')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?AD $ad = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'videos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -56,18 +57,6 @@ class Video
         return $this;
     }
 
-    public function getAd(): ?AD
-    {
-        return $this->ad;
-    }
-
-    public function setAd(?AD $ad): self
-    {
-        $this->ad = $ad;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -76,6 +65,18 @@ class Video
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Video;
-use App\Form\VideoType;
+use App\Form\Video1Type;
 use App\Repository\VideoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class VideoController extends AbstractController
     public function new(Request $request, VideoRepository $videoRepository): Response
     {
         $video = new Video();
-        $form = $this->createForm(VideoType::class, $video);
+        $form = $this->createForm(Video1Type::class, $video);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +51,7 @@ class VideoController extends AbstractController
     #[Route('/{id}/edit', name: 'app_video_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Video $video, VideoRepository $videoRepository): Response
     {
-        $form = $this->createForm(VideoType::class, $video);
+        $form = $this->createForm(Video1Type::class, $video);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
